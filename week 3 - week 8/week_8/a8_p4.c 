@@ -1,0 +1,53 @@
+/*CH-230-A
+A8p4.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+/* stack.c */
+#include "stack.h"
+#include <stdio.h> 
+#include <stdlib.h>
+
+struct stack* createStack() {
+    struct stack* s = (struct stack*)malloc(sizeof(struct stack));
+    if (s == NULL) {
+        fprintf(stderr, "Memory allocation failed. Exiting.\n");
+        exit(1);
+    }
+    s->count = 0;
+    return s;
+}
+
+bool push(struct stack* s, unsigned int value) {
+    if (s->count < 32) {  
+        s->array[s->count] = value % 2;
+        s->count++;
+        return true;
+    } else {
+        return false;  
+    }
+}
+
+unsigned int pop(struct stack* s) {
+    if (s->count > 0) {
+        s->count--;
+        return s->array[s->count];
+    } else {
+        return 0;  
+    }
+}
+
+void empty(struct stack* s) {
+    // Empty the stack
+    s->count = 0;
+}
+
+bool isEmpty(struct stack* s) {
+    return (s->count == 0);
+}
+
+void destroyStack(struct stack* s) {
+    free(s);
+}
