@@ -1,0 +1,26 @@
+/*CH-230-A
+A8p4.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+/* stack.h */
+#ifndef STACK_H
+#define STACK_H
+
+#include <stdbool.h>
+
+struct stack {
+    unsigned int count;
+    unsigned int array[32]; // Adjust the size as needed for larger numbers
+};
+
+struct stack* createStack();
+bool push(struct stack* s, unsigned int value);
+unsigned int pop(struct stack* s);
+void empty(struct stack* s);
+bool isEmpty(struct stack* s);
+void destroyStack(struct stack* s);
+
+#endif

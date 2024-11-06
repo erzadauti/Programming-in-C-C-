@@ -1,0 +1,59 @@
+/*
+CH-230-A
+A7p1.c
+Erza Dauti
+edauti@jacobs-university.de
+*/
+
+// linked_list.c
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void appendNode(struct Node** head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+}
+
+void insertNode(struct Node** head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void removeNode(struct Node** head) {
+    if (*head != NULL) {
+        struct Node* temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    }
+}
+
+void printList(struct Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+}
+
+void freeList(struct Node** head) {
+    struct Node* current = *head;
+    while (current != NULL) {
+        struct Node* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    *head = NULL;
+}

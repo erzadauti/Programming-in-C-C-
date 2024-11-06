@@ -1,0 +1,59 @@
+/*CH-230-A
+A9p1.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+/* a) If we comment out the using namespace std; line, 
+we are effectively removing the directive that tells the compiler 
+to use the std namespace by default. In this code, we are using several 
+elements from the std namespace, such as string, cin, and cout. 
+After commenting out using namespace std;, 
+we would need to specify the namespace explicitly when using these elements. 
+If we don't, we will encounter errors like :
+"undeclared identifier" for these elements.*/
+
+/* We would need to change this part of the code */
+
+string name;
+// ...
+cout << "Name: ";
+// ...
+cin >> hunger;
+
+
+/*By adding the std:: prefix, you are telling the compiler that these elements belong to the std namespace. 
+This change should resolve the error messages related to undeclared identifiers. */
+
+/* The code after the necessary changes */
+
+std::string name;
+// ...
+std::cout << "Name: ";
+// ...
+std::cin >> hunger;
+
+
+/* b) If we remove the Critter:: prefix from one of the methods in Critter.cpp, 
+   we will get an error because the compiler won't be able to find the definition of that method.
+   In C++, when you define a method outside of the class declaration, 
+   you must use the scope resolution operator :: to specify which class the method belongs to. */
+
+
+/* We would need to change this part of the code */
+
+void setName(string& newname) {
+    name = newname;
+}
+
+
+/*By adding Critter:: before the method name, 
+you specify that it belongs to the Critter class. 
+This change will resolve the error message related to an undefined function.*/
+
+/* The code after the necessary changes */
+
+void Critter::setName(string& newname) {
+    name = newname;
+}
