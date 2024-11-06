@@ -1,0 +1,68 @@
+/*CH-230-A
+A13p3.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Read the number of files (n) from the standard input
+    int n;
+    printf("Enter the number of files: ");
+    scanf("%d", &n);
+
+    // Validate the number of files
+    if (n <= 0) {
+        fprintf(stderr, "Error: Invalid number of files.\n");
+        return 1;
+    }
+
+    // Read file names from the standard input
+    char fileName[256]; // Assuming a maximum file name length of 255 characters
+    printf("Enter %d file names:\n", n);
+
+    // Open the output file for writing in binary mode
+    FILE *outputFile = fopen("concatn.txt", "wb");
+    if (!outputFile) {
+        fprintf(stderr, "Error: Could not create the output file.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        // Read each file name
+        scanf("%255s", fileName);
+
+        // Open each input file in binary mode
+        FILE *inputFile = fopen(fileName, "rb");
+
+        // Check if the file is successfully opened
+        if (!inputFile) {
+            fprintf(stderr, "Error: Could not open the input file '%s'.\n", fileName);
+            fclose(outputFile);
+            return 1;
+        }
+
+        // Copy the content of the input file to the output file
+        int ch;
+        while ((ch = fgetc(inputFile)) != EOF) {
+            fputc(ch, outputFile);
+        }
+
+        // Separate the content of different files with a newline character
+        fputc('\n', outputFile);
+
+        // Close the input file
+        fclose(inputFile);
+    }
+
+    // Close the output file
+    fclose(outputFile);
+
+    printf("Concatenation successful. Result written to concatn.txt.\n");
+
+    return 0;
+}
+
+

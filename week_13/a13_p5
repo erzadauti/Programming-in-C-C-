@@ -1,0 +1,57 @@
+/*CH-230-A
+A13p5.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+/* The code has an issue due to the ambiguity in 
+accessing the member x of class A in the derived class D. 
+This ambiguity arises because both B and C virtually inherit from A, 
+and when D inherits from both B and C, there is ambiguity in 
+accessing the common virtual base class A.*/
+
+/*To resolve this issue, we provide a constructor for
+ class D that explicitly calls the constructor of class A */
+
+
+#include<iostream>
+using namespace std;
+
+class A
+{
+  int x;
+public:
+  A(int i) { x = i; } 
+  void print() { cout << x; } 
+};
+
+class B: virtual public A
+{
+public:
+/* Constructor for B, explicitly calls the A constructor with value 10 */
+  B(): A(10) {  } 
+};
+
+class C: virtual public A 
+{
+public:
+/* Constructor for C, explicitly calls the A constructor with value 20 */
+  C(): A(20) {  } 
+};
+ 
+class D : public B, public C {
+public:
+
+/* Explicitly calls the constructor of A to resolve ambiguity */
+
+  D() : A(30) { }
+};
+ 
+int main()
+{
+    D d;
+    /* Output will be 30 */
+    d.print(); 
+    return 0;
+}

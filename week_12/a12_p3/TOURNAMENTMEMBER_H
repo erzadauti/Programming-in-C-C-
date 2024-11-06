@@ -1,0 +1,62 @@
+/*CH-230-A
+A12p3.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+#ifndef TOURNAMENTMEMBER_H
+#define TOURNAMENTMEMBER_H
+
+#include <iostream>
+
+class TournamentMember {
+private:
+    char firstName[40];
+    char lastName[40];
+    char dateOfBirth[20];
+    static char location[40]; 
+
+public:
+    TournamentMember();
+    TournamentMember(const char* fName, const char* lName, const char* dob);
+    TournamentMember(const TournamentMember& source);
+
+    ~TournamentMember();
+
+    const char* getFirstName() const { return firstName; }
+    const char* getLastName() const { return lastName; }
+    const char* getDateOfBirth() const { return dateOfBirth; }
+    static const char* getLocation() { return location; }
+
+    void printInfo() const;
+    void changeLocation(const char* newLocation);
+};
+
+class Player : public TournamentMember {
+private:
+    int number;
+    std::string position;
+    int goalsScored;
+    bool isRightfooted;
+
+public:
+    Player();
+    Player(const char* fName, const char* lName, const char* dob, int num, const std::string& pos, bool rightFooted);
+    Player(const Player& source); 
+
+    ~Player();
+
+    int getNumber() const { return number; }
+    const std::string& getPosition() const { return position; }
+    int getGoalsScored() const { return goalsScored; }
+    bool getIsRightFooted() const { return isRightfooted; }
+
+    void setNumber(int num);
+    void setPosition(const std::string& pos);
+    void setIsRightFooted(bool rightFooted);
+
+    void printPlayerInfo() const;
+    void incrementGoalsScored();
+};
+
+#endif // TOURNAMENTMEMBER_H

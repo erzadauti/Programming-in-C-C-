@@ -1,0 +1,55 @@
+/*CH-230-A
+A13p4.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+/* The  code will result in a compilation error due to the ambiguity in 
+accessing the print function in class D since it inherits 
+from both class B and class C, which in turn inherit from class A. 
+The compiler doesn't know which print function to use.
+To fix this, we can explicitly specify the base class from 
+which we want to call the print function in the D class  */
+
+#include<iostream>
+using namespace std;
+ 
+class A
+{
+  int x;
+public:
+  void setX(int i) { x = i; }
+  
+  void print() { cout << x; }
+};
+ 
+class B : public A
+{
+public:
+  B() { setX(10); }
+};
+ 
+class C : public A  
+{
+public:
+  C() { setX(20); }
+};
+ 
+class D : public B, public C {
+public:
+  /* Specify which print function to use for D */
+  void printD() {
+    /* Ambiguity resolution: specify the base class explicitly */
+    B::print();
+  }
+};
+ 
+int main()
+{
+    D d;
+    
+  /* Call the printD function to display the value of x in class B */
+    d.printD();
+    
+    return 0;
+}

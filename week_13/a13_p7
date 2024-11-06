@@ -1,0 +1,92 @@
+/*CH-230-A
+A13p7.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+#include <iostream>
+#include <stdexcept>
+
+
+class OwnException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "OwnException\n";
+    }
+};
+
+/* Throwing different types of exceptions based on the input parameter */
+void throwException(int parameter) {
+    switch (parameter) {
+        case 1:
+        /* Throw a character exception */
+            throw 'a'; 
+        case 2:
+        /* Throw an integer exception */
+            throw 12; 
+        case 3:
+        /* Throw a boolean exception */
+            throw true; 
+        default:
+        /* Throw a custom exception */
+            throw OwnException(); 
+    }
+}
+
+int main() {
+    try {
+        /* Call the function in its four versions and catch the corresponding exceptions */
+        throwException(1);
+    } catch (char c) {
+        /* Catch and handle the character exception */
+        std::cerr << "Caught in main: " << c << std::endl;
+    } catch (int i) {
+        /* Catch and handle the integer exception */
+        std::cerr << "Caught in main: " << i << std::endl;
+    } catch (bool b) {
+        /* Catch and handle the boolean exception */
+        std::cerr << "Caught in main: " << std::boolalpha << b << std::endl;
+    } catch (const OwnException& e) {
+        /* Catch and handle the custom exception */
+        std::cerr << "Caught in main: " << e.what();
+    }
+
+ try {
+        throwException(2);
+    } catch (char c) {
+        std::cerr << "Caught in main: " << c << std::endl;
+    } catch (int i) {
+        std::cerr << "Caught in main: " << i << std::endl;
+    } catch (bool b) {
+        std::cerr << "Caught in main: " << std::boolalpha << b << std::endl;
+    } catch (const OwnException& e) {
+        std::cerr << "Caught in main: " << e.what();
+    }
+
+    try {
+        throwException(3);
+    } catch (char c) {
+        std::cerr << "Caught in main: " << c << std::endl;
+    } catch (int i) {
+        std::cerr << "Caught in main: " << i << std::endl;
+    } catch (bool b) {
+        std::cerr << "Caught in main: " << std::boolalpha << b << std::endl;
+    } catch (const OwnException& e) {
+        std::cerr << "Caught in main: " << e.what();
+    }
+
+    try {
+        throwException(4);
+    } catch (char c) {
+        std::cerr << "Caught in main: " << c << std::endl;
+    } catch (int i) {
+        std::cerr << "Caught in main: " << i << std::endl;
+    } catch (bool b) {
+        std::cerr << "Caught in main: " << std::boolalpha << b << std::endl;
+    } catch (const OwnException& e) {
+        std::cerr << "Caught in main: " << e.what();
+    }
+
+    return 0;
+}
+

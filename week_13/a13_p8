@@ -1,0 +1,71 @@
+/*CH-230-A
+A13p8.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+#include <iostream>
+#include <stdexcept>
+
+/* Simulates a Motor */
+class Motor {
+public:
+    Motor() {
+        /* Simulate a problem with the motor */
+        throw std::runtime_error("This motor has problems");
+    }
+};
+
+/* Represents a Car with a Motor */
+class Car {
+public:
+    Car() {
+        try {
+            motor = new Motor();
+        } catch (const std::exception& e) {
+            /* Catch the exception thrown by Motor and rethrow with a different message */
+            throw std::runtime_error("The car's motor has problems");
+        }
+    }
+
+    ~Car() {
+        /* Clean up allocated resources */
+        delete motor;
+    }
+
+private:
+    Motor* motor;
+};
+
+class Garage {
+public:
+    Garage() {
+        try {
+            car = new Car();
+        } catch (const std::exception& e) {
+            /* Catch the exception thrown by Car and rethrow with a different message */
+            throw std::runtime_error("The car in this garage has problems with the motor");
+        }
+    }
+
+    ~Garage() {
+        /* Clean up allocated resources */
+        delete car;
+    }
+
+private:
+    Car* car;
+};
+
+int main() {
+    try {
+        Garage garage;
+    } catch (const std::exception& e) {
+        /* Catch the exception thrown by Garage and print the error message */
+        std::cerr << "Caught exception in main: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+

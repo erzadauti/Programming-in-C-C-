@@ -1,0 +1,27 @@
+/*CH-230-A
+A13p6.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+
+int main() {
+    try {
+        /* Create a vector and fill it with 20 elements, each initialized to the value 8 */
+        std::vector<int> myVector(20, 8);
+
+        int value = myVector.at(20);
+
+        std::cout << "Value at index 20: " << value << std::endl;
+    } catch (const std::out_of_range& e) {
+        /* Catch and handle the out_of_range exception */
+        std::cerr << "Exception caught: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+

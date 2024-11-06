@@ -1,0 +1,48 @@
+/*CH-230-A
+A13p1.c
+Erza Dauti
+edauti@constructor.university
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    /* Prompts for the name of the input file */
+    std::cout << "Enter the name of the input file: ";
+    std::string inputFileName;
+    std::cin >> inputFileName;
+
+    std::ifstream inputFile(inputFileName);
+    
+    if (!inputFile) {
+        std::cerr << "Error: Could not open the input file." << std::endl;
+        return 1;
+    }
+
+    /* Get the base name and extension */
+    size_t dotPos = inputFileName.find_last_of('.');
+    std::string baseName = inputFileName.substr(0, dotPos);
+    std::string extension = inputFileName.substr(dotPos);
+
+    /* Output file */
+    std::string outputFileName = baseName + "_copy" + extension;
+    std::ofstream outputFile(outputFileName);
+
+    /* Check if the output file is successfully opened */
+    if (!outputFile) {
+        std::cerr << "Error: Could not create the output file." << std::endl;
+        return 1;
+    }
+
+    /* Copy the content from the input file to the output file */
+    outputFile << inputFile.rdbuf();
+
+    inputFile.close();
+    outputFile.close();
+
+    std::cout << "File copied successfully to: " << outputFileName << std::endl;
+
+    return 0;
+}
